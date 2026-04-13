@@ -1,4 +1,4 @@
-# HQC on cortex m4
+# HQC on Arm Cortex-M4
 
 This repository contains implementations of various cryptographic algorithms cross-compiled for an Arm Cortex-M4 microcontrollers. Code can be tested using QEMU emulation or deployed on a STM32L4R5 Nucleo-144 board for performance benchmarking.
 
@@ -72,7 +72,7 @@ make MODE=MUL run-qemu PLATFORM=qemu   # Build and run
 ./run-all-tests.sh            # Run tests for all projects
 ```
 
-## Project Structure
+<!-- ## Project Structure
 
 Each project follows a consistent structure:
 ```
@@ -81,7 +81,7 @@ project-name/
 ├── src/          # Source codes                
 ├── tests/        # Test files
 ├── Makefile                # rules for building and running
-```
+``` -->
 
 ## Output Files
 
