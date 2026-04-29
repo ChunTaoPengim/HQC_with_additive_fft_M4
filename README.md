@@ -1,6 +1,7 @@
+The TCHES paper is available at https://eprint.iacr.org/2026/739 .
 # HQC on Arm Cortex-M4
 
-This repository contains implementations of various cryptographic algorithms cross-compiled for an Arm Cortex-M4 microcontrollers. Code can be tested using QEMU emulation or deployed on a STM32L4R5 Nucleo-144 board for performance benchmarking.
+This repository contains implementations of HQC for Arm Cortex-M4 microcontrollers. Code can be tested using QEMU emulation or deployed on a STM32L4R5 Nucleo-144 board for performance benchmarking.
 
 ## benchmark results
 ### multiplications
