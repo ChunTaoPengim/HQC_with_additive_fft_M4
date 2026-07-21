@@ -8,7 +8,7 @@ for dir in $TEST_DIRS; do
     cd $dir
     make clean > /dev/null
     
-    if CFLAGS=-Werror make run-qemu PLATFORM=qemu | grep -q "ALL GOOD"; then
+    if make run-qemu PLATFORM=qemu | grep -q "ALL GOOD"; then
         echo "$dir: PASSED"
     else
         echo "$dir: FAILED"

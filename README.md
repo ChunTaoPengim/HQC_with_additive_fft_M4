@@ -121,9 +121,14 @@ encoder/decoder.
 
 This replacement targets HQC only: it references symbols that exist in our
 implementations, so other schemes in the pqm4 tree will no longer build
-against it. Please use the commands below rather than `benchmarks.py`, and do
+against it. Please use the commands above rather than `benchmarks.py`, and do
 not build other schemes in this working copy. To restore the original
 behaviour, run `git -C pqm4/mupq checkout crypto_kem/speed.c`.
+
+The stack usage in Table 6 is obtained by flashing
+`bin/crypto_kem_hqc-1_m4f_stack.bin` instead. Repeat with
+`IMPLEMENTATION_PATH=crypto_kem/hqc-3/m4f` and `hqc-5/m4f` for the remaining
+columns.
 
 ## Development
 

@@ -9,10 +9,6 @@ CFLAGS += -I$(LIB_DIR) -I$(COMM_DIR) -I$(SRC_DIR) -I$(TARGET_DIR)
 
 MODE ?= KEM
 
-# ----------------------------------------------------
-# 變數定義
-# ----------------------------------------------------
-# 根據 MODE 來定義要編譯的檔案
 ifeq ($(MODE), KEM)
     TARGET := tests/test_kem.c
 else ifeq ($(MODE), MUL)
@@ -24,7 +20,6 @@ else ifeq ($(MODE), C)
     #TARGET := tests/test_rs_syndrome.c
     TARGET := tests/test_portableCkem.c
 else
-    # 預設或錯誤處理
     $(error Unknown MODE: $(MODE). Must be KEM or MUL)
 endif
 
