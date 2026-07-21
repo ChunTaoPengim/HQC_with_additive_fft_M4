@@ -48,13 +48,7 @@ for v in "${VARIANTS[@]}"; do
 done
 
 echo "[done] All variants installed into $DEST_BASE/<variant>/m4f/"
-# pqm4's speed test benchmarks the KEM API only (keypair/encaps/decaps), which
-# covers Table 6 of the paper. Tables 4 and 5 report cycle counts for individual
-# components -- the polynomial multiplication and the encoder/decoder -- and
-# pqm4 provides no facility for benchmarking at that granularity. We therefore
-# install a modified speed.c that additionally times these two components.
-# The added code is guarded by HQC_BENCH_AVAILABLE, a macro defined only in the
-# api.h of our HQC implementations, so all other schemes in pqm4 are unaffected.
+
 SPEED_SRC="speed.c"
 SPEED_DEST="$PQDIR/mupq/crypto_kem/speed.c"
 
