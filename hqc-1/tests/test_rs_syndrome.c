@@ -206,7 +206,7 @@ static const uint32_t rs_parity_mat_n90_r58[15*90] = {
 };
 
 
-// 這是你的 function
+
 #define TEST_FUNC   rs_syndrome_n46_r30
 #define PMAT   rs_parity_mat_n46_r30
 
@@ -215,7 +215,7 @@ static const uint32_t rs_parity_mat_n90_r58[15*90] = {
 #define P (N - K)
 #define P_U32 ((P + 3) / 4)
 
-// --- 測試主程式 ---
+
 int main() {
     uint8_t codeword[N];
     SYNDROME_T syndrome[P];
@@ -224,18 +224,18 @@ int main() {
     printf("Starting RS (%d/%d) Parity Check Test (Weight-1 Vectors)...\n\n", N, K);
 
     for (int i = 0; i < N; i++) {
-        // 1. 準備 input: 只有第 i 個 byte 是 1
+
         memset(codeword, 0, N);
         codeword[i] = 1;
 
-        // 2. 執行編碼
+
         TEST_FUNC(syndrome, codeword);
 
-        // 3. 驗證結果
+
         const uint8_t *expected_parity = (const uint8_t *)&PMAT[i * P_U32];
         
         int match = 1;
-        // 檢查前 Parity 部分
+
         for (int j = 0; j < P; j++) {
             if (syndrome[j] != expected_parity[j]) {
                 match = 0;

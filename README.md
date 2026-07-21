@@ -7,30 +7,30 @@ This repository contains implementations of HQC for Arm Cortex-M4 microcontrolle
 ### multiplications
 
 ### New Multiplication
-| hqc-1 | hqc-3 | 
-| :---| :--- | 
-| 1753860| 4836147 |
-
+| hqc-1 | hqc-3 | hqc-5|
+| :---| :--- | :--- | 
+| 1753860| 4836147 | 9290004 |
+The table is part of table 4 in the paper.
 ### New codec 
 | operation | hqc-1 | hqc-3 | hqc-5|
 | :--- |:---| :--- | :---|
 | Encode | 7945| 14878 |26752|
 | Decode | 909832| 1348110 | 2337350|
-
+The table is part of table 5 in the paper.
 ### HQC component
 | operation | hqc-1 | hqc-3 | hqc-5 |
 | :--- | :--- | :--- | :--- |
 | Keygen | 2928092 | 8054559 | 12701974 |
 | Encap  | 5187762 | 14427435| 21890093 |
 | Decap  | 8748583 | 22876873| 34771718 |
-
+The table is part of table 5 in the paper.
 ## Prerequisites
 
 Linux (recommended: Ubuntu) or MacOS is required to use this project.
 If you are using Windows, we highly recommend using an Ubuntu virtual machine, e.g., using [Virtual Box](https://www.virtualbox.org/).
 
 **Arm GCC Toolchain**:
-- **Preferred**: Download from [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)(In our paper we use version 10.3.1)
+- **Preferred**: Download from [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)(In our paper we use version 10.3.1, which can be found in https://developer.arm.com/downloads/-/gnu-rm)
 - Ubuntu/Debian: `sudo apt install gcc-arm-none-eabi`
 - macOS: `brew install gcc-arm-embedded`
 
@@ -73,16 +73,6 @@ make MODE=MUL run-qemu PLATFORM=qemu   # Build and run
 ./run-all-tests.sh            # Run tests for all projects
 ```
 
-<!-- ## Project Structure
-
-Each project follows a consistent structure:
-```
-project-name/
-├── lib/    # Library for fips202
-├── src/          # Source codes                
-├── tests/        # Test files
-├── Makefile                # rules for building and running
-``` -->
 
 ## Output Files
 
@@ -115,7 +105,14 @@ make -j4 PLATFORM=nucleo-l4r5zi IMPLEMENTATION_PATH=crypto_kem/hqc-1/m4f
 st-flash write bin/crypto_kem_hqc-1_m4f_speed.bin 0x8000000
 # connect to serial terminal:
 pyserial-miniterm /dev/tty.usbmodem* 38400
+# or for linux
+pyserial-miniterm /dev/tty.ACM* 38400
 ```
+To obtain Tables 4, 5 and 6, we extend pqm4's `speed` test to also time the new
+polynomial multiplication and the new encoder/decoder. `./pqm4.sh` performs the
+full setup: it clones pqm4 at the revision used in the paper (`a24bb4b`),
+installs our implementations as the `m4f` variant of `hqc-{1,3,5}`, and applies
+`speed.c` to `mupq/crypto_kem/speed.c`.
 
 ## Development
 

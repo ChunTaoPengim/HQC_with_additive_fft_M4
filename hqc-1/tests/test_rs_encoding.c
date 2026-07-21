@@ -86,7 +86,7 @@ static const uint32_t rs_gen_mat_r58[15*32] = {
 };
 
 
-// 這是你的 function
+
 #define TEST_FUNC   rs_encode_46_16
 #define GENMAT   rs_gen_mat_r30
 
@@ -95,7 +95,7 @@ static const uint32_t rs_gen_mat_r58[15*32] = {
 #define P (N - K)
 #define P_U32 ((P + 3) / 4)
 
-// --- 測試主程式 ---
+
 int main() {
     uint8_t mesg[K];
     uint8_t codeword[N];
@@ -104,20 +104,18 @@ int main() {
     printf("Starting RS (%d/%d) Encode Test (Weight-1 Vectors)...\n\n", N, K);
 
     for (int i = 0; i < K; i++) {
-        // 1. 準備 input: 只有第 i 個 byte 是 1
+
         memset(mesg, 0, K);
         mesg[i] = 1;
 
-        // 2. 執行編碼
+
         TEST_FUNC(codeword, mesg);
 
-        // 3. 驗證結果
-        // 根據邏輯，codeword[0...29] 應該等於 rs_gen_mat_r30[i*8 ... i*8+7] 的前 30 bytes
-        // 我們將 rs_gen_mat 的對應部分轉為 byte 指針來比較
+
         const uint8_t *expected_parity = (const uint8_t *)&GENMAT[i * P_U32];
         
         int match = 1;
-        // 檢查前 30 bytes (Parity 部分)
+
         for (int j = 0; j < P; j++) {
             if (codeword[j] != expected_parity[j]) {
                 match = 0;
@@ -125,7 +123,7 @@ int main() {
             }
         }
         
-        // 檢查後 16 bytes (Systematic 部分，應該等於原始 mesg)
+
         for (int j = 0; j < K; j++) {
             if (codeword[P + j] != mesg[j]) {
                 match = 0;
