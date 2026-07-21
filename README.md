@@ -41,7 +41,7 @@ WSL2 also works for building and QEMU; flashing a board from WSL2 additionally r
 - Ubuntu/Debian: `sudo apt install qemu-system-arm`
 - macOS: `brew install qemu`
 
-**For  stlink**:
+**For stlink**:
 - Ubuntu/Debian: `sudo apt install stlink-tools`
 - macOS: `brew install stlink`
 
@@ -68,6 +68,7 @@ The build also emits a number of warnings (`-Wincompatible-pointer-types`,
 punning used throughout the arithmetic layer, where the same buffers are
 addressed as byte, word and 64-bit arrays depending on the kernel, and from
 shift amounts that are unreachable for the parameter sets actually instantiated.
+The correctness is verified with QEMU and pam4.
 We have left the code as measured for the paper rather than restructuring it, so that the published cycle
 counts correspond exactly to the source in this artifact.
 
