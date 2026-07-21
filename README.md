@@ -23,11 +23,12 @@ The table is part of table 5 in the paper.
 | Keygen | 2928092 | 8054559 | 12701974 |
 | Encap  | 5187762 | 14427435| 21890093 |
 | Decap  | 8748583 | 22876873| 34771718 |
-The table is part of table 5 in the paper.
+The table is part of table 6 in the paper.
 ## Prerequisites
 
 Linux (recommended: Ubuntu) or MacOS is required to use this project.
 If you are using Windows, we highly recommend using an Ubuntu virtual machine, e.g., using [Virtual Box](https://www.virtualbox.org/).
+WSL2 also works for building and QEMU; flashing a board from WSL2 additionally requires USB passthrough via usbipd-win, which is why we suggest VirtualBox for the full hardware flow.
 
 **Arm GCC Toolchain**:
 - **Preferred**: Download from [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)(In our paper we use version 10.3.1, which can be found in https://developer.arm.com/downloads/-/gnu-rm)
@@ -106,13 +107,20 @@ st-flash write bin/crypto_kem_hqc-1_m4f_speed.bin 0x8000000
 # connect to serial terminal:
 pyserial-miniterm /dev/tty.usbmodem* 38400
 # or for linux
-pyserial-miniterm /dev/tty.ACM* 38400
+pyserial-miniterm /dev/ttyACM* 38400
 ```
-To obtain Tables 4, 5 and 6, we extend pqm4's `speed` test to also time the new
-polynomial multiplication and the new encoder/decoder. `./pqm4.sh` performs the
-full setup: it clones pqm4 at the revision used in the paper (`a24bb4b`),
-installs our implementations as the `m4f` variant of `hqc-{1,3,5}`, and applies
-`speed.c` to `mupq/crypto_kem/speed.c`.
+**Note on `benchmarks.py`.** pqm4's `speed` test benchmarks the KEM API only
+— `keypair`, `encaps`, `decaps` — and pqm4 offers no facility for timing
+individual components, so Tables 4 and 5 of the paper cannot be obtained
+through it. `pqm4.sh` therefore replaces `mupq/crypto_kem/speed.c` with a
+version that additionally times the polynomial multiplication and the
+encoder/decoder.
+
+This replacement targets HQC only: it references symbols that exist in our
+implementations, so other schemes in the pqm4 tree will no longer build
+against it. Please use the commands below rather than `benchmarks.py`, and do
+not build other schemes in this working copy. To restore the original
+behaviour, run `git -C pqm4/mupq checkout crypto_kem/speed.c`.
 
 ## Development
 

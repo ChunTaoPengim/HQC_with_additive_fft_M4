@@ -86,7 +86,7 @@ static const uint32_t rs_gen_mat_r58[15*32] = {
 };
 
 
-// function
+
 #define TEST_FUNC   rs_encode_90_32
 #define GENMAT   rs_gen_mat_r58
 
@@ -95,7 +95,7 @@ static const uint32_t rs_gen_mat_r58[15*32] = {
 #define P (N - K)
 #define P_U32 ((P + 3) / 4)
 
-// main program
+
 int main() {
     uint8_t mesg[K];
     uint8_t codeword[N];
