@@ -10,12 +10,14 @@ This repository contains implementations of HQC for Arm Cortex-M4 microcontrolle
 | hqc-1 | hqc-3 | hqc-5|
 | :---| :--- | :--- | 
 | 1753860| 4836147 | 9290004 |
+
 The table is part of table 4 in the paper.
 ### New codec 
 | operation | hqc-1 | hqc-3 | hqc-5|
 | :--- |:---| :--- | :---|
 | Encode | 7945| 14878 |26752|
 | Decode | 909832| 1348110 | 2337350|
+
 The table is part of table 5 in the paper.
 ### HQC component
 | operation | hqc-1 | hqc-3 | hqc-5 |
@@ -23,6 +25,7 @@ The table is part of table 5 in the paper.
 | Keygen | 2928092 | 8054559 | 12701974 |
 | Encap  | 5187762 | 14427435| 21890093 |
 | Decap  | 8748583 | 22876873| 34771718 |
+
 The table is part of table 6 in the paper.
 ## Prerequisites
 
