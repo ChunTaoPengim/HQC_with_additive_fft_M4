@@ -4,9 +4,8 @@ The TCHES paper is available at https://eprint.iacr.org/2026/739 .
 This repository contains implementations of HQC for Arm Cortex-M4 microcontrollers. Code can be tested using QEMU emulation or deployed on a STM32L4R5 Nucleo-144 board for performance benchmarking.
 
 ## benchmark results
-### multiplications
 
-### New Multiplication
+### Multiplication
 | hqc-1 | hqc-3 | hqc-5|
 | :---| :--- | :--- | 
 | 1753860| 4836147 | 9290004 |
@@ -52,6 +51,25 @@ WSL2 also works for building and QEMU; flashing a board from WSL2 additionally r
 
 ## Quick Start
 We use qemu and pqm4(https://github.com/mupq/pqm4) to test and benchmark our projects:  
+
+### Compiler versions and warnings
+
+The results in the paper were produced with arm-none-eabi-gcc 10.3.1, which we
+recommend for reproduction. The code builds with newer toolchains as well, but
+GCC 14 and later promote `-Wincompatible-pointer-types` from a warning to an
+error by default, so those versions require:
+
+```bash
+make CFLAGS="-Wno-error=incompatible-pointer-types"
+```
+
+The build also emits a number of warnings (`-Wincompatible-pointer-types`,
+`-Wshift-count-overflow` and others). These originate from the deliberate type
+punning used throughout the arithmetic layer, where the same buffers are
+addressed as byte, word and 64-bit arrays depending on the kernel, and from
+shift amounts that are unreachable for the parameter sets actually instantiated.
+We have left the code as measured for the paper rather than restructuring it, so that the published cycle
+counts correspond exactly to the source in this artifact.
 
 ### Building and Running
 
