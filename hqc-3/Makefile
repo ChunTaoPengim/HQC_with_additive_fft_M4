@@ -13,6 +13,8 @@ ifeq ($(MODE), KEM)
     TARGET := tests/test_kem.c
 else ifeq ($(MODE), MUL)
     TARGET := tests/test_mul.c
+else ifeq ($(MODE), RS)
+    TARGET := tests/test_rs_decoding.c
 else ifeq ($(MODE), C)
     SRC_DIR = src/portable_c/
     #TARGET := tests/test_0x11dgf256.c
@@ -20,7 +22,7 @@ else ifeq ($(MODE), C)
     #TARGET := tests/test_rs_syndrome.c
     TARGET := tests/test_portableCkem.c
 else
-    $(error Unknown MODE: $(MODE). Must be KEM or MUL)
+    $(error Unknown MODE: $(MODE). Must be KEM, MUL, RS or C)
 endif
 
 

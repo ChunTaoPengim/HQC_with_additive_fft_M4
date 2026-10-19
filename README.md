@@ -91,6 +91,13 @@ make PLATFORM=qemu            # Build
 make MODE=MUL run-qemu PLATFORM=qemu   # Build and run
 ```
 
+### Test the Reed-Solomon decoder
+
+```bash
+cd hqc-1/                    # or any project directory
+make MODE=RS run-qemu PLATFORM=qemu    # Decode codewords with 5 symbol errors
+```
+
 ### Test All Projects
 ```bash
 ./run-all-tests.sh            # Run tests for all projects
