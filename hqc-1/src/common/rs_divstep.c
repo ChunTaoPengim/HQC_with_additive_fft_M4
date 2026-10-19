@@ -92,7 +92,9 @@ void compute_elp_divstep(uint8_t * omega, uint8_t *sigma,  uint8_t *syndromes)
         r[0] = 0;
         delta -= 1;
         
-        uint16_t mask_swap = ((uint16_t)(-( (g[(2*PARAM_DELTA)] != 0) && (delta < 0) ))) ;
+        uint32_t g0_nonzero = (uint32_t)(-(uint32_t)g[2*PARAM_DELTA]) >> 31;
+        uint32_t delta_negative = (uint32_t)delta >> 31;
+        uint16_t mask_swap = (uint16_t)(-(g0_nonzero & delta_negative));
         // conditional swap f, g
         uint8_t temp;
         for(int j = 0; j < 2*(PARAM_DELTA) +1; j++)
@@ -112,7 +114,7 @@ void compute_elp_divstep(uint8_t * omega, uint8_t *sigma,  uint8_t *syndromes)
             v[j] ^= temp;
         }
         // delta < 0 && g[30] != 0
-        delta += mask_swap & ( -delta );
+        delta += mask_swap & (-2 * delta);
         uint8_t f0 = f[2*(PARAM_DELTA)];
         uint8_t g0 = g[2*(PARAM_DELTA)];
 
@@ -162,8 +164,10 @@ static void poly_eval(uint8_t * sigma, uint8_t * omega, uint8_t * beta_j_inverse
     
     gf256_madd_16(tmpp1_array, beta_j_inverse_u32, omega[(PARAM_DELTA-1)]);
     gf256_madd_16(tmpp2_array, beta_j_inverse_u32, sigma[(PARAM_DELTA-1)]);
-    tmpp1_array[0] ^= (uint32_t)omega[(PARAM_DELTA-2)] * 0x01010101u;
-    tmpp2_array[0] ^= (uint32_t)sigma[(PARAM_DELTA-2)] * 0x01010101u;
+    for (size_t i = 0; i < sizeof tmpp1_array / sizeof tmpp1_array[0]; i++) {
+        tmpp1_array[i] ^= (uint32_t)omega[(PARAM_DELTA-2)] * 0x01010101u;
+        tmpp2_array[i] ^= (uint32_t)sigma[(PARAM_DELTA-2)] * 0x01010101u;
+    }
 
 
     // pre-compute (uint32_t)omega[j] * 0x01010101u
